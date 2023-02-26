@@ -43,12 +43,12 @@ class Migration(migrations.Migration):
                 ('price', models.DecimalField(decimal_places=2, max_digits=10, null=True)),
                 ('status', models.CharField(default='available', max_length=14)),
                 ('buy_date', models.DateField(null=True)),
-                ('item_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='polls.item')),
+                ('item_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='slist.item')),
             ],
         ),
         migrations.AddField(
             model_name='item',
             name='shop_id',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='polls.malllist'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='slist.malllist'),
         ),
     ]
