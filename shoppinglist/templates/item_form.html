@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Add item:</h1>
+<form action="/shopping_list/" method="post">
+    {% csrf_token %}
+    <input type="text" name="item" placeholder="Item">
+    <input type="text" name="amount" placeholder="amount">
+    <select name="shop">
+        {% for shop in shops %}
+            <option value="{{ shop_id }}">{{ shop_name }}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Add">
+<br>
+{%for item in shopping_list_data %}
+    <p>{{ item.item_id.name }} {{item.quantity }}  {{item.item_id.shop_id.name}}</p>
+{% endfor %}
+</form>
+</body>
+</html>

@@ -19,7 +19,7 @@ class UserList(models.Model):
 
 class MallList(models.Model):
     name = models.CharField(max_length=50)
-    list_id = models.UUIDField
+    list_id = models.UUIDField()
 
 
 class Item(models.Model):
