@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add item</title>
+</head>
+<body>
+<form action="/shopping_list/add" method="post">
+{%for item in shopping_list_data %}
+    <p>{{ item.item_id.name }} {{ item.quantity }}  {{item.item_id.shop_id.name}}
+        <input type="submit" value="Add">
+    <form method="post" action="/shopping_list/{{ item.item_id.id }}/buy"> </form> </p>
+{% endfor %}
+</form>
+</body>
+</html>

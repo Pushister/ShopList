@@ -22,15 +22,15 @@ def index(request):
     result = list(ShoppingList.objects.filter(list_id=user_list.list_id).all())
 
     return render(request, 'item_form.html', {'shopping_list_data': result,
-                                              "shops": MallList.objects.all().filter(list_id=user_list.list_id)})
+                                              "shops": MallList.objects.all()})
 
 
 def add_item(request):
-    return HttpResponse("Add item")
+    return render(request, 'add.html')
 
 
 def buy_item(request, item_id):
-    return HttpResponse("Buy item")
+    return render(request, 'add.html')
 
 
 def remove_item(request, item_id):

@@ -9,16 +9,20 @@
 <form action="/shopping_list/" method="post">
     {% csrf_token %}
     <input type="text" name="item" placeholder="Item">
-    <input type="text" name="amount" placeholder="amount">
+    <input type="text" name="amount" placeholder="Amount">
     <select name="shop">
         {% for shop in shops %}
-            <option value="{{ shop_id }}">{{ shop_name }}</option>
-        {% endfor %}
+            <option value ="{{ shop.id }}">{{ shop.name }}</option>
+    {% endfor %}
     </select>
     <input type="submit" value="Add">
 <br>
+<h1>Items</h1>
 {%for item in shopping_list_data %}
-    <p>{{ item.item_id.name }} {{item.quantity }}  {{item.item_id.shop_id.name}}</p>
+    <p>{{ item.item_id.name }} {{ item.quantity }}  {{item.item_id.shop_id.name}}
+        <input type="submit" value="add to my list">
+    <form method="post" action="/shopping_list/{{ item.item_id.id }}/buy"> </form>
+    </p>
 {% endfor %}
 </form>
 </body>
