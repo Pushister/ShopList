@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import ShoppingList, UserList, MallList, Item
+from slist.models import ShoppingList, UserList, MallList, Item
+from django.shortcuts import redirect
+
 
 # Create your views here.
 
@@ -19,22 +21,38 @@ def index(request):
         new_item = ShoppingList(list_id=user_list.list_id, item_id=item_obj, quantity=amount)
         new_item.save()
 
-    result = list(ShoppingList.objects.filter(list_id=user_list.list_id).all())
+    result = list(ShoppingList.objects.filter(list_id=user_list.list_id,
+                                              status='available').all())
 
     return render(request, 'item_form.html', {'shopping_list_data': result,
                                               "shops": MallList.objects.all()})
 
 
-def add_item(request):
-    return render(request, 'add.html')
+def add_item(request, item_id):
+    if request.method == 'POST':
+        user_list = UserList.objects.filter(user_id=1).first()
+        price = request.POST.get('price')
+        status = 'bought'
+        buy_date = request.POST.get('date')
+        quantity_obj = ShoppingList.objects.filter(item_id=item_id).first()
+        shop_obj = ShoppingList(list_id=user_list.list_id,
+                                item_id_id=item_id,
+                                quantity=quantity_obj.quantity,
+                                price=price,
+                                status=status,
+                                buy_date=buy_date,
+                                )
+        shop_obj.save()
 
-
-def buy_item(request, item_id):
-    return render(request, 'add.html')
+    return render(request, 'success.html')
 
 
 def remove_item(request, item_id):
-    return HttpResponse("Remove item")
+    if request.method == 'POST':
+        item_obj = ShoppingList.objects.filter(item_id_id=item_id)
+        item_obj.delete()
+
+    return redirect('/shopping_list/')
 
 
 def add_shop(request):
