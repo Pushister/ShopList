@@ -2,12 +2,15 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from slist.models import ShoppingList, UserList, MallList, Item
 from django.shortcuts import redirect
+from django.conf import settings
 
 
 # Create your views here.
 
 
 def index(request):
+    if not request.user.is_authenticated:
+        return redirect('/user/login')
     user_list = UserList.objects.filter(user_id=1).first()
 
     if request.method == 'POST':
@@ -29,6 +32,8 @@ def index(request):
 
 
 def add_item(request, item_id):
+    if not request.user.is_authenticated:
+        return redirect('/user/login')
     if request.method == 'POST':
         user_list = UserList.objects.filter(user_id=1).first()
         price = request.POST.get('price')
@@ -48,6 +53,8 @@ def add_item(request, item_id):
 
 
 def remove_item(request, item_id):
+    if not request.user.is_authenticated:
+        return redirect('/user/login')
     if request.method == 'POST':
         item_obj = ShoppingList.objects.filter(item_id_id=item_id)
         item_obj.delete()
@@ -56,12 +63,18 @@ def remove_item(request, item_id):
 
 
 def add_shop(request):
+    if not request.user.is_authenticated:
+        return redirect('/user/login')
     return HttpResponse("Add shop")
 
 
 def add_user(request):
+    if not request.user.is_authenticated:
+        return redirect('/user/login')
     return HttpResponse("Add shop")
 
 
 def analytics(request):
+    if not request.user.is_authenticated:
+        return redirect('/user/login')
     return HttpResponse("Analytics")
