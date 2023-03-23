@@ -11,7 +11,8 @@ from django.conf import settings
 def index(request):
     if not request.user.is_authenticated:
         return redirect('/user/login')
-    user_list = UserList.objects.filter(user_id=1).first()
+    user_id = request.user.id
+    user_list = UserList.objects.filter(user_id=user_id).first()
 
     if request.method == 'POST':
         item_name = request.POST.get('item')
