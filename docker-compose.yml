@@ -10,7 +10,8 @@ services:
       - DB_HOST=pg_db_container
       - DB_USER=postgres
       - DB_PASSWORD=postgres
-
+    depends_on:
+      - db
 
   db:
     image: postgres:14.1-alpine

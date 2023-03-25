@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-*o1r^+%f3ei0hazdqkf%)+-)!7vh-)3-ig59@0i$jzpwq%^*2m'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1']
 
@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'slist.apps.PollsConfig',
+    'slist',
 ]
 
 MIDDLEWARE = [
@@ -80,7 +80,7 @@ DATABASES = {
         'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': 'pg_db_container',
+        'HOST': '127.0.0.1',
         'PORT': '5432',
 
     }
