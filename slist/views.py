@@ -36,19 +36,21 @@ def add_item(request, item_id):
     if not request.user.is_authenticated:
         return redirect('/user/login')
     if request.method == 'POST':
-        user_list = UserList.objects.filter(user_id=1).first()
+        user_id = request.user.id
+        user_list = UserList.objects.filter(user_id=user_id).first()
         price = request.POST.get('price')
-        status = 'bought'
         buy_date = request.POST.get('date')
         quantity_obj = ShoppingList.objects.filter(item_id=item_id).first()
         shop_obj = ShoppingList(list_id=user_list.list_id,
                                 item_id_id=item_id,
                                 quantity=quantity_obj.quantity,
                                 price=price,
-                                status=status,
+                                status='bought',
                                 buy_date=buy_date,
                                 )
         shop_obj.save()
+        item_obj = ShoppingList.objects.filter(item_id_id=item_id, status='available')
+        item_obj.delete()
 
     return render(request, 'success.html')
 

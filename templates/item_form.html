@@ -23,12 +23,14 @@
             <p>{{ item.item_id.name }} {{ item.quantity }}  {{item.item_id.shop_id.name}}<p>
             <form method="post" action="/shopping_list/{{ item.item_id.id }}/buy">
                 {% csrf_token %}
-                <input type="number" value = "price" placeholder="price">
-                <input type="date" placeholder="date">
+                <input type="number" value = "price" placeholder="price" name="price">
+                <input type="date" placeholder="date" name="date">
                 <input type="submit" value="buy">
             </form>
             <form method="post" action="/shopping_list/{{ item.item_id.id }}/remove">
+                {% csrf_token %}
                   <p><input type="submit" value="remove this from list">
+            </form>
         {% endfor %}
 </body>
 </html>
